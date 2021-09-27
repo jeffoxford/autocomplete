@@ -1,6 +1,3 @@
-# Pemavor.com Autocomplete Scraper
-# Author: Stefan Neefischer (stefan.neefischer@gmail.com)
-
 import pandas as pd
 import requests
 import string
