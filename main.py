@@ -55,8 +55,7 @@ def qrlist(k) :
     queryList15 = ['difference between ' + k + " and " + char for char in charList]
     queryList15 = ['what are ' + k + char for char in charList]
 
-    joinedlist = queryList 
-    # joinedlist = queryList + queryList1 + queryList2 + queryList3 + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14
+    joinedlist = queryList + queryList1 + queryList2 + queryList3 + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14
     return joinedlist
 resultList = []
 def getGoogleSuggests(keyword):
