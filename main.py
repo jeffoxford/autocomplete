@@ -33,8 +33,7 @@ def makeGoogleRequest(query):
         return suggestedSearches
     else:
         return "ERR"
-def qrlist(k) :      
-    queryList = [k + " " + char for char in charList]
+def qrlist(k) :
     queryList1 = ['are ' + k + " " + char for char in charList]
     queryList2 = ['what is ' + k + " " + char for char in charList]
     queryList3 = ['is ' + k + " " + char for char in charList]
@@ -53,7 +52,7 @@ def qrlist(k) :
     queryList16 = ['what are ' + k + char for char in charList]
 
 
-    joinedlist = queryList + queryList1 + queryList2 + queryList3 + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14+queryList16
+    joinedlist = queryList1 + queryList2 + queryList3 + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14+queryList16
     return joinedlist
 resultList = []
 def getGoogleSuggests(keyword):
@@ -67,18 +66,22 @@ def getGoogleSuggests(keyword):
         suggestion = makeGoogleRequest(query)
         if suggestion != 'ERR':
             for s in suggestion: 
-                resultList.append({
-                    'keyword' : keyword ,
-                    'query': query,
-                    'suggestion' : s
-                    })
+                if keyword in s:
+                    resultList.append({
+                        'keyword' : keyword ,
+                        'query': query,
+                        'suggestion' : s
+                        })
+                else :
+                    pass
 
 
-keywords = st.text_input('Add the Keyword and press the button')
+keywords = st.text_input('Add the comma separated Keywords and press the button')
 
 if st.button('Start Process The Keyword'):
-    tt = keywords
-    getGoogleSuggests(tt)
+    tt = keywords.split(',')
+    for t in tt :
+        getGoogleSuggests(t)
 
 
 def to_excel(df):
