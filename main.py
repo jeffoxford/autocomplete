@@ -17,7 +17,7 @@ MAX_WORKERS = 20
 # set the autocomplete language
 lang = "en"
 
-charList = " " + string.ascii_lowercase + string.digits
+charList = string.ascii_lowercase + string.digits
 
 def makeGoogleRequest(query):
     # If you make requests too quickly, you may be blocked by google 
@@ -52,7 +52,7 @@ def qrlist(k) :
     queryList16 = ['what are ' + k + char for char in charList]
 
 
-    joinedlist = queryList1 + queryList2 + queryList3 + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14+queryList16
+    joinedlist = queryList1 + queryList2 + queryList3  + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14+queryList16
     return joinedlist
 resultList = []
 def getGoogleSuggests(keyword):
@@ -61,12 +61,41 @@ def getGoogleSuggests(keyword):
     my_bar = st.progress(0)
     percent_complete=0
     for query in queryList:
+        if 'are '  in query :
+            qquery = 'are ' 
+        elif 'what '  in query :
+            qquery = 'what ' 
+        elif 'is '  in query :
+            qquery = 'is ' 
+        elif 'best'  in query :
+            qquery = 'best' 
+        elif ' vs '  in query :
+            qquery = ' vs ' 
+        elif ' or '  in query :
+            qquery = ' or ' 
+        elif 'can '  in query :
+            qquery = 'can ' 
+        elif 'which '  in query :
+            qquery = 'which ' 
+        elif 'will '  in query :
+            qquery = 'will ' 
+        elif 'how '  in query :
+            qquery = 'how ' 
+        elif 'do '  in query :
+            qquery = 'do ' 
+        elif 'for '  in query :
+            qquery = 'for ' 
+        elif 'best ' in query :
+            qquery = 'best '
+        elif 'difference ' in query :
+            qquery = 'difference '
+
         percent_complete =percent_complete + 1
         my_bar.progress(percent_complete/len(queryList))
         suggestion = makeGoogleRequest(query)
         if suggestion != 'ERR':
             for s in suggestion: 
-                if keyword in s:
+                if qquery in s:
                     resultList.append({
                         'keyword' : keyword ,
                         'query': query,
@@ -76,11 +105,11 @@ def getGoogleSuggests(keyword):
                     pass
 
 
-keywords = st.text_input('Add the comma separated Keywords and press the button')
+keywords = st.text_input('Add the comma separated Keywords and press the button (maximum of 3)')
 
 if st.button('Start Process The Keyword'):
     tt = keywords.split(',')
-    for t in tt :
+    for t in tt[:3] :
         getGoogleSuggests(t)
 
 
