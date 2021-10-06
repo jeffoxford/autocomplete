@@ -49,7 +49,7 @@ def qrlist(k) :
     queryList13 = [k + " for " + char for char in charList]
     queryList14 = ['best ' + k + " for " + char for char in charList]
     queryList15 = ['difference between ' + k + " and " + char for char in charList]
-    queryList16 = ['what are ' + k + char for char in charList]
+    queryList16 = ['what are ' + k +' '+ char for char in charList]
 
 
     joinedlist = queryList1 + queryList2 + queryList3  + queryList4 + queryList5 + queryList6 + queryList7 +  queryList8 + queryList9 + queryList15 + queryList10+ queryList11+ queryList12+ queryList13+ queryList14+queryList16
