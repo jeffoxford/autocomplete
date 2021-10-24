@@ -63,49 +63,55 @@ def getGoogleSuggests(keyword):
     for query in queryList:
         if 'are '  in query :
             qquery = 'are ' 
-            type = 'attribute'
         elif 'what '  in query :
             qquery = 'what ' 
-            type = 'other'
         elif 'is '  in query :
             qquery = 'is ' 
-            type = 'attribute'
         elif 'best'  in query :
             qquery = 'best' 
-            type = 'subtopic'
         elif ' vs '  in query :
             qquery = ' vs ' 
-            type = 'antology'
         elif ' or '  in query :
             qquery = ' or ' 
-            type = 'antology'
         elif 'can '  in query :
             qquery = 'can ' 
-            type = 'attribute'
         elif 'which '  in query :
             qquery = 'which ' 
-            type = 'other'
         elif 'will '  in query :
             qquery = 'will ' 
-            type = 'other'
-        elif 'how to'  in query :
-            type = 'guide'
         elif 'how '  in query :
             qquery = 'how ' 
-            type = 'other'
         elif 'do '  in query :
             qquery = 'do ' 
-            type = 'attribute'
         elif 'for '  in query :
             qquery = 'for ' 
-            type = 'use case'
         elif 'best ' in query :
             qquery = 'best '
-            type = 'use case'
         elif 'difference ' in query :
             qquery = 'difference '
-            type = 'antology'
-
+        
+        if query.startswith ("are "):
+            type = "attribute"
+        elif query.startswith ("is "):
+            type = "attribute"
+        elif query.startswith ("can "):
+            type = "attribute"
+        elif query.startswith ("best "):
+            type = "subtopic"
+        elif  " vs " in query:
+            type = "ontology"
+        elif " or " in query:
+            type = "ontology"
+        elif query.startswith ("how to"):
+            type = "how to guide"
+        elif query.startswith ("do "):
+            type = "attribute"
+        elif query.startswith ("for "):
+            type = "use case"
+        elif query.startswith ("difference between "):
+            type = "ontology"
+        else :
+            type = 'other'
         percent_complete =percent_complete + 1
         my_bar.progress(percent_complete/len(queryList))
         suggestion = makeGoogleRequest(query)
