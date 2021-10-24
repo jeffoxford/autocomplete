@@ -97,7 +97,9 @@ def getGoogleSuggests(keyword):
         if suggestion != 'ERR':
             for s in suggestion: 
                 if qquery in s:
-                    if s.startswith ("are "):
+                    if  (" for ") in s:
+                        type = "use case"
+                    elif s.startswith ("are "):
                         type = "attribute"
                     elif s.startswith ("is "):
                         type = "attribute"
@@ -113,8 +115,6 @@ def getGoogleSuggests(keyword):
                         type = "how to guide"
                     elif s.startswith ("do "):
                         type = "attribute"
-                    elif  (" for ") in s:
-                        type = "use case"
                     elif s.startswith ("difference between "):
                         type = "ontology"
                     else :
