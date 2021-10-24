@@ -90,34 +90,35 @@ def getGoogleSuggests(keyword):
         elif 'difference ' in query :
             qquery = 'difference '
         
-        if query.startswith ("are "):
-            type = "attribute"
-        elif query.startswith ("is "):
-            type = "attribute"
-        elif query.startswith ("can "):
-            type = "attribute"
-        elif query.startswith ("best "):
-            type = "subtopic"
-        elif  " vs " in query:
-            type = "ontology"
-        elif " or " in query:
-            type = "ontology"
-        elif query.startswith ("how to"):
-            type = "how to guide"
-        elif query.startswith ("do "):
-            type = "attribute"
-        elif query.startswith ("for "):
-            type = "use case"
-        elif query.startswith ("difference between "):
-            type = "ontology"
-        else :
-            type = 'other'
+
         percent_complete =percent_complete + 1
         my_bar.progress(percent_complete/len(queryList))
         suggestion = makeGoogleRequest(query)
         if suggestion != 'ERR':
             for s in suggestion: 
                 if qquery in s:
+                    if s.startswith ("are "):
+                        type = "attribute"
+                    elif s.startswith ("is "):
+                        type = "attribute"
+                    elif s.startswith ("can "):
+                        type = "attribute"
+                    elif s.startswith ("best "):
+                        type = "subtopic"
+                    elif  " vs " in s:
+                        type = "ontology"
+                    elif " or " in s:
+                        type = "ontology"
+                    elif s.startswith ("how to"):
+                        type = "how to guide"
+                    elif s.startswith ("do "):
+                        type = "attribute"
+                    elif  (" for ") in s:
+                        type = "use case"
+                    elif s.startswith ("difference between "):
+                        type = "ontology"
+                    else :
+                        type = 'other'
                     resultList.append({
                         'keyword' : keyword ,
                         'type' : type ,
