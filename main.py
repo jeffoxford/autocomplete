@@ -1,3 +1,4 @@
+from operator import index
 import pandas as pd
 import requests
 import string
@@ -137,22 +138,6 @@ if st.button('Start Process The Keyword'):
         getGoogleSuggests(t)
 
 
-def to_excel(df):
-    output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, sheet_name='Sheet1')
-    writer.save()
-    processed_data = output.getvalue()
-    return processed_data
-
-def get_table_download_link(df,name):
-    """Generates a link allowing the data in a given panda dataframe to be downloaded
-    in:  dataframe
-    out: href string
-    """
-    val = to_excel(df)
-    b64 = base64.b64encode(val)  # val looks like b'...'
-    return f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="{name}.xlsx">Download Excel file</a>' # decode b'abc' => abc
 
 
 
@@ -160,7 +145,19 @@ outputDf = pd.DataFrame(resultList)
 
 
 st.dataframe(outputDf)
-st.markdown(get_table_download_link(outputDf,'Google_ac'), unsafe_allow_html=True)
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv(index=False,).encode('utf-8')
+
+csv = convert_df(outputDf)
+
+st.download_button(
+     label="Download data as CSV",
+     data=csv,
+     file_name='data.csv',
+     mime='text/csv',
+ )
 
 
 st.text(f"Execution time: { ( time.time() - startTime ) :.2f} sec")
